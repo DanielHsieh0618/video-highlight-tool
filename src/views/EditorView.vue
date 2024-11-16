@@ -44,8 +44,8 @@ onBeforeMount(() => {
           v-for="(sentence, sentenceIdx) in section.sentences || []"
           :key="`sentence_${sectionIdx}_${sentenceIdx}`"
           :class="{
-            'bg-blue-500': sentence.highlight,
-            'text-white': sentence.highlight
+            '!bg-blue-500': sentence.highlight,
+            '!text-white': sentence.highlight
           }"
           class="bg-white p-2 flex gap-2 !mb-2 rounded"
         >
