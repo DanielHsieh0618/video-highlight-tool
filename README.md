@@ -1,57 +1,37 @@
-# video-highlight-tool
+# Document about the technical choices
 
-This template should help get you started developing with Vue 3 in Vite.
+## 環境 / Environment
 
-## Recommended IDE Setup
+---
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- node : 20.x ( LTS )
+- node package manager :
+  - pnpm : 9.13.2 ( 最快的套件管理工具 )
 
-## Customize configuration
+## 前端框架 / Frontend Framework
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+---
 
-## Project Setup
+- Vue.js：當前最熟悉的前端框架
 
-```sh
-pnpm install
-```
+## 基本設定 / Basic Configuration
 
-### Compile and Hot-Reload for Development
+---
 
-```sh
-pnpm dev
-```
+- ESLint：為確保程式碼的品質與一致性
+- Prettier：為確保程式碼的風格與排版一致
 
-### Compile and Minify for Production
+## 開發與部署 / Development and Deployment
 
-```sh
-pnpm build
-```
+---
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+- Vite：Vue 預設的開發工具，也支援 React ，啟動開發伺服器與打包效率佳。
+- MSW ( Mock Service Worker )： 模擬 API 的工具，不用架設另外的伺服器，僅在瀏覽器使用 service worker 即可運行，開發迅速也跨框架支援。
+- Pinia：狀態管理工具，若跨 Components 存取資料時可以使用。（本次未使用，若未來實作不同使存取自己的 Tokens 有可能使用到）
 
-```sh
-pnpm test:unit
-```
+## 測試 / Test
 
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
+---
 
-```sh
-pnpm test:e2e:dev
-```
-
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-pnpm build
-pnpm test:e2e
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm lint
-```
+- Vitest ( unit test )：Vite 原生的測試框架，支援 Jest 語法，執行速度快。(本次因時間關係未使用)
+- Cypress ( end-to-end test )：支援多種裝置的端點測試框架，在 Vue 的社群也被廣泛使用。(本次因時間關係未使用)
