@@ -6,6 +6,10 @@ const route = useRoute()
 const { uuid } = route.params
 const video = ref(null)
 const loading = ref(false)
+const currentVideo = ref({
+  url: null,
+  playing: false
+})
 
 const fetchingAnalyzedVideo = async () => {
   loading.value = true
@@ -17,6 +21,14 @@ const fetchingAnalyzedVideo = async () => {
 onBeforeMount(() => {
   fetchingAnalyzedVideo()
 })
+
+async function onClickSentence(sentence) {
+  currentVideo.value.url = sentence.url
+  const video = document.querySelector('video')
+  await video.load()
+  await video.play()
+  currentVideo.value.playing = true
+}
 </script>
 
 <template>
@@ -49,11 +61,12 @@ onBeforeMount(() => {
           class="bg-white p-2 flex gap-2 !mb-2 rounded"
         >
           <div
-            class="font-bold"
+            class="font-bold cursor-pointer"
             :class="{
               'text-blue-500': !sentence.highlight,
               'text-white': sentence.highlight
             }"
+            @click="onClickSentence(sentence)"
           >
             {{ sentence.timestamp }}
           </div>
@@ -66,7 +79,7 @@ onBeforeMount(() => {
     <div class="bg-gray-800 p-4 basis-full md:basis-1/2">
       <h3 class="text-xl font-bold !mb-3 text-white">Preview</h3>
       <div class="flex justify-center">
-        <video :src="video.url" controls class="w-auto mx-auto"></video>
+        <video :src="currentVideo.url" controls class="w-auto mx-auto"></video>
       </div>
     </div>
   </div>
