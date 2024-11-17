@@ -64,12 +64,16 @@ onBeforeMount(() => {
   fetchingAnalyzedVideo()
 })
 
-const { height: windowHeight } = useWindowSize()
+const { height: windowHeight, width: windowWidth } = useWindowSize()
 
-watch([windowHeight, loading], async () => {
+watch([windowHeight, windowWidth, loading], async () => {
   await nextTick()
-  const previewZoneHeight = previewZoneRef.value?.clientHeight || 0
-  editingZoneStyle.value.maxHeight = `${windowHeight.value - parseInt(previewZoneHeight)}px`
+  if (windowWidth.value < 768) {
+    const previewZoneHeight = previewZoneRef.value?.clientHeight || 0
+    editingZoneStyle.value.maxHeight = `${windowHeight.value - parseInt(previewZoneHeight)}px`
+  } else {
+    editingZoneStyle.value.maxHeight = `auto`
+  }
 })
 
 watch(video, async () => {
