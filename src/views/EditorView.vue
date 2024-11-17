@@ -8,6 +8,7 @@ const video = ref(null)
 const loading = ref(false)
 const currentVideo = ref({
   url: null,
+  captionSrc: null,
   playing: false
 })
 
@@ -24,6 +25,7 @@ onBeforeMount(() => {
 
 async function onClickSentence(sentence) {
   currentVideo.value.url = sentence.url
+  currentVideo.value.captionSrc = sentence.captionSrc
   const video = document.querySelector('video')
   await video.load()
   await video.play()
@@ -79,7 +81,20 @@ async function onClickSentence(sentence) {
     <div class="bg-gray-800 p-4 basis-full md:basis-1/2">
       <h3 class="text-xl font-bold !mb-3 text-white">Preview</h3>
       <div class="flex justify-center">
-        <video :src="currentVideo.url" controls class="w-auto mx-auto"></video>
+        <video
+          :src="currentVideo.url"
+          preload="auto"
+          playsinline
+          controls
+          class="w-auto mx-auto"
+        >
+          <track
+            default
+            kind="captions"
+            :src="currentVideo.captionSrc"
+            srclang="zh-tw"
+          />
+        </video>
       </div>
     </div>
   </div>

@@ -14,49 +14,54 @@ export default [
           title: 'Intro',
           sentences: [
             {
+              timestamp: '00:00',
               start: 0,
               end: 1,
-              timestamp: '00:00',
               text: '',
               highlight: false,
-              url: '/video-highlight-tool/part1.mp4'
+              url: '/video-highlight-tool/part1.mp4',
+              captionSrc: '/video-highlight-tool/part1.vtt'
             },
             {
+              timestamp: '00:01',
               start: 1,
               end: 5,
-              timestamp: '00:01',
               text: '早晨就該這麼鬆。',
               highlight: false,
-              url: '/video-highlight-tool/part2.mp4'
+              url: '/video-highlight-tool/part2.mp4',
+              captionSrc: '/video-highlight-tool/part2.vtt'
             },
             {
+              timestamp: '00:05',
               start: 5,
               end: 9,
-              timestamp: '00:05',
               text: '微甜新滋味。',
               highlight: false,
-              url: '/video-highlight-tool/part3.mp4'
+              url: '/video-highlight-tool/part3.mp4',
+              captionSrc: '/video-highlight-tool/part3.vtt'
             }
           ]
         },
         {
-          title: 'MacGriddles 厚鬆餅堡',
+          title: 'McGriddles 厚鬆餅堡',
           sentences: [
             {
+              timestamp: '00:09',
               start: 9,
               end: 15,
-              timestamp: '00:09',
               text: '蓬鬆厚實，有甜有鹹，一早鬆一個。',
               highlight: false,
-              url: '/video-highlight-tool/part4.mp4'
+              url: '/video-highlight-tool/part4.mp4',
+              captionSrc: '/video-highlight-tool/part4.vtt'
             },
             {
+              timestamp: '00:15',
               start: 15,
               end: 20,
-              timestamp: '00:15',
-              text: 'MacGriddles 厚鬆餅堡，早晨限定。',
+              text: 'McGriddles 厚鬆餅堡，早晨限定。',
               highlight: true,
-              url: '/video-highlight-tool/part5.mp4'
+              url: '/video-highlight-tool/part5.mp4',
+              captionSrc: '/video-highlight-tool/part5.vtt'
             }
           ]
         },
@@ -64,12 +69,13 @@ export default [
           title: 'Outro',
           sentences: [
             {
+              timestamp: '00:20',
               start: 20,
               end: 25,
-              timestamp: '00:20',
               text: '享受一早酥脆，升級薯餅套餐更有活力。',
               highlight: true,
-              url: '/video-highlight-tool/part6.mp4'
+              url: '/video-highlight-tool/part6.mp4',
+              captionSrc: '/video-highlight-tool/part6.vtt'
             }
           ]
         }
