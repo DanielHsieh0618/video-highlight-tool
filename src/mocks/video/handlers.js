@@ -7,12 +7,13 @@ export default [
       uuid: 'c7b3d8e0-5e0b-4b0f-8b3a-3b9f4b3d3b3d',
       name: '厚鬆餅堡廣告.mp4',
       url: '/video-highlight-tool/videoplay-360p.mp4',
+      duration: 25,
       transcript:
         '早晨就該這麼鬆。微甜新滋味。蓬鬆厚實，有甜有鹹。一早鬆一個，MacGriddles 厚鬆餅堡早晨限定。享受一早酥脆，升級薯餅套餐更有活力。',
       sections: [
         {
           title: 'Intro',
-          sentences: [
+          clips: [
             {
               timestamp: '00:00',
               start: 0,
@@ -44,7 +45,7 @@ export default [
         },
         {
           title: 'McGriddles 厚鬆餅堡',
-          sentences: [
+          clips: [
             {
               timestamp: '00:09',
               start: 9,
@@ -67,7 +68,7 @@ export default [
         },
         {
           title: 'Outro',
-          sentences: [
+          clips: [
             {
               timestamp: '00:20',
               start: 20,
