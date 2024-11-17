@@ -1,9 +1,13 @@
 <script setup>
 import Button from 'primevue/button'
-import { ref, computed, onBeforeMount, watch } from 'vue'
+import { ref, computed, onBeforeMount, watch, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 import { analyzeVideo } from '@/api/video/api'
-import { useMouseInElement, useEventListener } from '@vueuse/core'
+import {
+  useMouseInElement,
+  useEventListener,
+  useWindowSize
+} from '@vueuse/core'
 
 const route = useRoute()
 const { uuid } = route.params
@@ -28,6 +32,10 @@ const currentClip = ref({
 })
 const videoCurrentTime = ref(0)
 const loading = ref(false)
+const previewZoneRef = ref(null)
+const editingZoneStyle = ref({
+  maxHeight: `auto`
+})
 const videoRef = ref(null)
 const scrubberRef = ref(null)
 const scrubbing = ref(false)
@@ -52,11 +60,24 @@ const highlightedClips = computed(() => {
   return clips.value.filter((clip) => clip.highlight)
 })
 
-onBeforeMount(async () => {
-  await fetchingAnalyzedVideo()
-  currentClip.value = JSON.parse(
-    JSON.stringify(highlightedClips.value?.[0] || currentClip.value)
-  )
+onBeforeMount(() => {
+  fetchingAnalyzedVideo()
+})
+
+const { height: windowHeight } = useWindowSize()
+
+watch([windowHeight, loading], async () => {
+  await nextTick()
+  const previewZoneHeight = previewZoneRef.value?.clientHeight || 0
+  editingZoneStyle.value.maxHeight = `${windowHeight.value - parseInt(previewZoneHeight)}px`
+})
+
+watch(video, async () => {
+  if (video.value) {
+    await nextTick()
+    const firstClip = highlightedClips.value?.[0] || currentClip.value
+    await onClickTimestamp(firstClip)
+  }
 })
 
 async function fetchingAnalyzedVideo() {
@@ -75,6 +96,9 @@ async function onClickTimestamp(clip) {
   currentClip.value.text = clonedClip.text
   currentClip.value.captionSrc = clonedClip.captionSrc
   await videoRef.value.load()
+  document.querySelector(`#clip-start-${clonedClip.start}`).scrollIntoView({
+    behavior: 'smooth'
+  })
 }
 
 function onClickClip(clip) {
@@ -208,7 +232,10 @@ async function onClickForward() {
     v-else
     class="w-full md:h-[100dvh] flex items-stretch gap-0 md:flex-nowrap flex-wrap"
   >
-    <div class="bg-[#efefef] p-4 basis-full md:basis-1/2 order-2 md:order-1">
+    <div
+      class="bg-[#efefef] p-4 basis-full md:basis-1/2 order-2 md:order-1 overflow-auto"
+      :style="editingZoneStyle"
+    >
       <h3 class="text-xl font-bold !mb-5">Transcript</h3>
       <div
         v-for="(section, sectionIdx) in video.sections || []"
@@ -218,13 +245,14 @@ async function onClickForward() {
         <h5 class="text-lg font-bold !mb-2 indent-1">{{ section.title }}</h5>
         <div
           v-for="(clip, clipIdx) in section.clips || []"
+          :id="`clip-start-${clip.start}`"
           :key="`sentence_${sectionIdx}_${clipIdx}`"
           :class="{
             '!bg-blue-500': clip.highlight,
             '!text-white': clip.highlight,
             'border-2 border-red-500': currentClip.start === clip.start
           }"
-          class="bg-white p-2 flex gap-2 !mb-2 rounded cursor-pointer"
+          class="bg-white p-2 flex gap-2 !mt-2 rounded cursor-pointer"
           @click="onClickClip(clip)"
         >
           <div
@@ -246,6 +274,7 @@ async function onClickForward() {
       </div>
     </div>
     <div
+      ref="previewZoneRef"
       class="bg-gray-800 p-4 basis-full md:basis-1/2 pb-6 order-1 md:order-2"
     >
       <h3 class="text-xl font-bold !mb-3 text-white">Preview</h3>
