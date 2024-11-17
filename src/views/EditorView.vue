@@ -11,7 +11,6 @@ const fetchingAnalyzedVideo = async () => {
   loading.value = true
   const response = await analyzeVideo(uuid)
   video.value = response.data
-  console.log('video', video.value)
   loading.value = false
 }
 
