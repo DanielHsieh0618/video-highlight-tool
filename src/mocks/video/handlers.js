@@ -12,7 +12,7 @@ export default [
         '早晨就該這麼鬆。微甜新滋味。蓬鬆厚實，有甜有鹹。一早鬆一個，MacGriddles 厚鬆餅堡早晨限定。享受一早酥脆，升級薯餅套餐更有活力。',
       sections: [
         {
-          title: 'Intro',
+          title: 'Opening',
           clips: [
             {
               timestamp: '00:00',
@@ -67,7 +67,7 @@ export default [
           ]
         },
         {
-          title: 'Outro',
+          title: 'Closure',
           clips: [
             {
               timestamp: '00:20',
