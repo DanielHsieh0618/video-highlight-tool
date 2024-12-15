@@ -4,5 +4,5 @@ import Toast from 'primevue/toast'
 
 <template>
   <RouterView />
-  <Toast />
+  <Toast style="max-width: calc(100vw - 40px)" />
 </template>
